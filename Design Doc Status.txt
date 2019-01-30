@@ -1,0 +1,14 @@
+Design Doc Status
+
+Proposal
+https://docs.google.com/document/d/1eyF3mJ-cFKO2sFoHymUO0X75T27AEw7hUJ4L7KHrZ28/edit?usp=sharing
+Last Updated: 1/29
+
+Mechanic Design
+https://docs.google.com/document/d/1aG9gnYAc4VTDK5w8BC8JblzWhY2KNPgBDthZRkItQHc/edit?usp=sharing
+Last updated: 1/29
+
+Reference Links
+https://docs.google.com/document/d/1C0zejxc4DDpAzdjB_f1vXYfqqIzfasyaxR9b1p22uNQ/edit?usp=sharing
+Last updated: 1/29
+
