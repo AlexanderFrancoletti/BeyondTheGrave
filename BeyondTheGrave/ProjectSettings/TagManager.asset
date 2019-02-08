@@ -13,11 +13,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - 1Hitbox
+  - 1Hurtbox
+  - 2Hitbox
+  - 2Hurtbox
   - 
   - 
   - 
