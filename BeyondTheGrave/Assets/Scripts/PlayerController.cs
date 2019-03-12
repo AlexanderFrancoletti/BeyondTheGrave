@@ -13,6 +13,19 @@ public class PlayerController : MonoBehaviour
     private float halfHeight;
     public bool grounded;
     public Rigidbody2D rb;
+    public string HorizontalControl;
+    public string VerticalControl;
+    public string LightButton;
+    public string HeavyButton;
+    public string SpecialButton;
+    public string FakeButton;
+
+    public Animator anim;
+    private bool Light;
+    private bool Heavy;
+    private bool Special;
+    private bool Feint;
+    private bool Idle;
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,13 +34,19 @@ public class PlayerController : MonoBehaviour
         friction = player.speed*2;
         halfHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
         grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - halfHeight - 0.04f), Vector2.down, 0.025f);
+        anim = GetComponent<Animator>();
+        Light = false;
+        Heavy = false;
+        Special = false;
+        Feint = false;
+        Idle = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        jumpInput = Input.GetAxis("Jump");
-        directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        jumpInput = Input.GetAxis(VerticalControl);
+        directionalInput = new Vector2(Input.GetAxisRaw(HorizontalControl), Input.GetAxisRaw(VerticalControl));
         if (grounded)
         {
             rb.AddForce(new Vector2((directionalInput.x * friction - rb.velocity.x) * friction, 0));
@@ -37,6 +56,13 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, player.jumpSpeed * 6f);
                 grounded = false;
             }
+            if (grounded)
+            {
+                if (Input.GetButtonDown(LightButton))
+                {
+                    Light = true;
+                }
+            }
         }
         else
         {
@@ -44,5 +70,32 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
         }
         grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - halfHeight - 0.04f), Vector2.down, 0.025f);
+
+        ExecuteAnim();
+    }
+
+    public void ExecuteAnim()
+    {
+        if (Light)
+        {
+            anim.SetTrigger("Light");
+            Light = false;
+        }
+        else if (Heavy)
+        {
+
+        }
+        else if (Special)
+        {
+
+        }
+        else if (Feint)
+        {
+
+        }
+        else
+        {
+            anim.SetBool("Idle", true);
+        }
     }
 }
