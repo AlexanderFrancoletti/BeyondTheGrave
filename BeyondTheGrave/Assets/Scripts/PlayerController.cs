@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private bool Special;
     private bool Feint;
     private bool Idle;
+    private float AnimFinish;
     // Start is called before the first frame update
     void Awake()
     {
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
         Special = false;
         Feint = false;
         Idle = true;
+        AnimFinish = 0f;
     }
 
     // Update is called once per frame
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         jumpInput = Input.GetAxis(VerticalControl);
         directionalInput = new Vector2(Input.GetAxisRaw(HorizontalControl), Input.GetAxisRaw(VerticalControl));
-        if (grounded)
+        if (grounded && AnimFinish <= 0f)
         {
             rb.AddForce(new Vector2((directionalInput.x * friction - rb.velocity.x) * friction, 0));
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
@@ -61,10 +63,11 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetButtonDown(LightButton))
                 {
                     Light = true;
+                    AnimFinish = .5f;
                 }
             }
         }
-        else
+        else if (AnimFinish <= 0f)
         {
             rb.AddForce(new Vector2((directionalInput.x/2 * friction - rb.velocity.x) * friction, 0));
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
@@ -79,23 +82,30 @@ public class PlayerController : MonoBehaviour
         if (Light)
         {
             anim.SetTrigger("Light");
+            anim.SetBool("Idle", false);
             Light = false;
         }
         else if (Heavy)
         {
-
+            anim.SetBool("Idle", false);
         }
         else if (Special)
         {
-
+            anim.SetBool("Idle", false);
         }
         else if (Feint)
         {
-
+            anim.SetBool("Idle", false);
+        }
+        else if (AnimFinish >= 0)
+        {
+            AnimFinish-= Time.deltaTime;
+            anim.SetBool("Idle", false);
         }
         else
         {
             anim.SetBool("Idle", true);
         }
+        Debug.Log(AnimFinish);
     }
 }
