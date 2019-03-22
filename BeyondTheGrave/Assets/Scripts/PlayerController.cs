@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private int jump;
     private Vector2 directionalInput;
     private float jumpInput;
+    private float lastJumpInput;
     private Vector2 Velocity;
     private float friction;
     private float halfHeight;
@@ -47,13 +48,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        jumpInput = Input.GetAxis(VerticalControl);
+        jumpInput = Input.GetAxisRaw(VerticalControl);
         directionalInput = new Vector2(Input.GetAxisRaw(HorizontalControl), Input.GetAxisRaw(VerticalControl));
         if (grounded && AnimFinish <= 0f)
         {
             rb.AddForce(new Vector2((directionalInput.x * friction - rb.velocity.x) * friction, 0));
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
-            if (jumpInput > 0f)
+            if (jumpInput > 0f && lastJumpInput <= 0f)
             {
                 rb.velocity = new Vector2(rb.velocity.x, player.jumpSpeed * 6f);
                 grounded = false;
@@ -73,6 +74,8 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
         }
         grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - halfHeight - 0.04f), Vector2.down, 0.025f);
+
+        lastJumpInput = Input.GetAxisRaw(VerticalControl);
 
         ExecuteAnim();
     }
@@ -106,6 +109,6 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool("Idle", true);
         }
-        Debug.Log(AnimFinish);
+        //Debug.Log(AnimFinish);
     }
 }
