@@ -64,6 +64,11 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetButtonDown(LightButton))
                 {
                     Light = true;
+                    AnimFinish = .25f;
+                }
+                else if (Input.GetButtonDown(HeavyButton))
+                {
+                    Heavy = true;
                     AnimFinish = .5f;
                 }
             }
@@ -90,7 +95,9 @@ public class PlayerController : MonoBehaviour
         }
         else if (Heavy)
         {
+            anim.SetTrigger("Heavy");
             anim.SetBool("Idle", false);
+            Heavy = false;
         }
         else if (Special)
         {

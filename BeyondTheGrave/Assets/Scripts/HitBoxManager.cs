@@ -5,8 +5,8 @@ public class HitBoxManager : MonoBehaviour
 {
 
     // Set these in the editor
-    public PolygonCollider2D frame2;
-    public PolygonCollider2D frame3;
+    public PolygonCollider2D box1;
+    public PolygonCollider2D box2;
 
     // Used for organization
     private PolygonCollider2D[] colliders;
@@ -27,7 +27,7 @@ public class HitBoxManager : MonoBehaviour
     void Start()
     {
         // Set up an array so our script can more easily set up the hit boxes
-        colliders = new PolygonCollider2D[] { frame2, frame3 };
+        colliders = new PolygonCollider2D[] { box1, box2 };
         val = hitBoxes.frame2Box;
         // Create a polygon collider
         localCollider = gameObject.AddComponent<PolygonCollider2D>();
