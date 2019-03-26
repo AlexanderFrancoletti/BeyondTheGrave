@@ -73,15 +73,28 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        else if (!grounded && AnimFinish <= 0f)
+        {
+            if (Input.GetButtonDown(LightButton))
+            {
+                Light = true;
+                AnimFinish = .3f;
+            }
+            else if (Input.GetButtonDown(HeavyButton))
+            {
+                Heavy = true;
+                AnimFinish = .5f;
+            }
+        }
         else if (AnimFinish <= 0f)
         {
-            rb.AddForce(new Vector2((directionalInput.x/2 * friction - rb.velocity.x) * friction, 0));
+            rb.AddForce(new Vector2((directionalInput.x / 2 * friction - rb.velocity.x) * friction, 0));
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
         }
         grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - halfHeight - 0.04f), Vector2.down, 0.025f);
 
         lastJumpInput = Input.GetAxisRaw(VerticalControl);
-
+        anim.SetBool("Grounded", grounded);
         ExecuteAnim();
     }
 

@@ -57,8 +57,4 @@ public class LightBoxSpawner : MonoBehaviour
         val = hitBoxes.frame2Box;
     }
 
-    public void debugAnim(string s)
-    {
-        Debug.Log(s);
-    }
 }

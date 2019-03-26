@@ -321,6 +321,8 @@ GameObject:
   - component: {fileID: 522478163}
   - component: {fileID: 522478164}
   - component: {fileID: 522478165}
+  - component: {fileID: 522478167}
+  - component: {fileID: 522478166}
   m_Layer: 0
   m_Name: Player1Spawner
   m_TagString: Untagged
@@ -504,6 +506,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   box1: {fileID: 960526507}
+--- !u!114 &522478166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522478157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad48d0bbdd380f41bc6dd61b0b08085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  box1: {fileID: 835530806}
+  box2: {fileID: 1197907528}
+--- !u!114 &522478167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522478157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a30c721f75e51f94e836e204b58a888d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  box1: {fileID: 416734841}
 --- !u!1 &664178677
 GameObject:
   m_ObjectHideFlags: 0
