@@ -44,7 +44,7 @@ public class AirLightBoxSpawner : MonoBehaviour
         Debug.Log("Collider hit something!");
     }
 
-    public void setLightBox()
+    public void setAirLightBox()
     {
         //localCollider.pathCount = 0;
         if (val != hitBoxes.clear)

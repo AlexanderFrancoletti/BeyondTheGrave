@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetButtonDown(LightButton))
                 {
                     Light = true;
-                    AnimFinish = .25f;
+                    AnimFinish = .3f;
                 }
                 else if (Input.GetButtonDown(HeavyButton))
                 {
