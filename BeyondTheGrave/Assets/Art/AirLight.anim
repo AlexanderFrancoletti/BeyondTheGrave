@@ -23,7 +23,7 @@ AnimationClip:
       value: {fileID: 21300010, guid: 1b30180371eb1154ab86f459c9f2b165, type: 3}
     - time: 0.083333336
       value: {fileID: 21300024, guid: 1b30180371eb1154ab86f459c9f2b165, type: 3}
-    - time: 0.16666667
+    - time: 0.25
       value: {fileID: 21300026, guid: 1b30180371eb1154ab86f459c9f2b165, type: 3}
     attribute: m_Sprite
     path: 
@@ -35,24 +35,14 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings:
-    - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    pptrCurveMapping:
-    - {fileID: 21300010, guid: 1b30180371eb1154ab86f459c9f2b165, type: 3}
-    - {fileID: 21300024, guid: 1b30180371eb1154ab86f459c9f2b165, type: 3}
-    - {fileID: 21300026, guid: 1b30180371eb1154ab86f459c9f2b165, type: 3}
+    genericBindings: []
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.25
+    m_StopTime: 0.33333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -80,7 +70,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.25
-    functionName: setAirLightBox
+    functionName: setLightBox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
