@@ -28,10 +28,18 @@ public class PlayerController : MonoBehaviour
     private bool Feint;
     private bool Idle;
     private float AnimFinish;
+
     // Start is called before the first frame update
     void Awake()
     {
         player = new Player();
+
+        player.MoveUsed = new bool[4];
+        for (int i = 0; i < player.MoveUsed.Length; ++i)
+        {
+            player.MoveUsed[i] = false;
+        }
+
         jump = 1;
         friction = player.speed*2;
         halfHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
@@ -64,12 +72,14 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetButtonDown(LightButton))
                 {
                     Light = true;
-                    AnimFinish = .3f;
+                    AnimFinish = .25f;
+                    player.MoveUsed[0] = true;
                 }
                 else if (Input.GetButtonDown(HeavyButton))
                 {
                     Heavy = true;
-                    AnimFinish = .5f;
+                    AnimFinish = .417f;
+                    player.MoveUsed[1] = true;
                 }
             }
         }
@@ -78,12 +88,14 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown(LightButton))
             {
                 Light = true;
-                AnimFinish = .3f;
+                AnimFinish = .25f;
+                player.MoveUsed[2] = true;
             }
             else if (Input.GetButtonDown(HeavyButton))
             {
                 Heavy = true;
-                AnimFinish = .5f;
+                AnimFinish = .417f;
+                player.MoveUsed[3] = true;
             }
         }
         else if (AnimFinish <= 0f)

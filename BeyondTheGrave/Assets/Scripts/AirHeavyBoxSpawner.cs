@@ -3,7 +3,9 @@ using System.Collections;
 
 public class AirHeavyBoxSpawner : MonoBehaviour
 {
-
+    public float damage;
+    public PlayerController enemy;
+    public PlayerController controller;
     // Set these in the editor
     public PolygonCollider2D box1;
     public PolygonCollider2D box2;
@@ -36,13 +38,19 @@ public class AirHeavyBoxSpawner : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(localCollider.pathCount);
-        Debug.Log(localCollider.points.Length);
+        //Debug.Log(localCollider.pathCount);
+        //Debug.Log(localCollider.points.Length);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("Collider hit something!");
+        if (controller.player.MoveUsed[3])
+        {
+            Debug.Log("Collider hit something!");
+            enemy.player.health -= damage;
+            Debug.Log(enemy.player.health);
+            controller.player.MoveUsed[3] = false;
+        }
     }
 
     public void setAirHeavyBox()

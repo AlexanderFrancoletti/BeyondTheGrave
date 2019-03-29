@@ -4,6 +4,9 @@ using System.Collections;
 public class LightBoxSpawner : MonoBehaviour
 {
 
+    public float damage;
+    public PlayerController enemy;
+    public PlayerController controller;
     // Set these in the editor
     public PolygonCollider2D box1;
 
@@ -35,13 +38,19 @@ public class LightBoxSpawner : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(localCollider.pathCount);
-        Debug.Log(localCollider.points.Length);
+        //Debug.Log(localCollider.pathCount);
+        //Debug.Log(localCollider.points.Length);
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("Collider hit something!");
+        if (controller.player.MoveUsed[0])
+        {
+            Debug.Log("Collider hit something!");
+            enemy.player.health -= damage;
+            Debug.Log(enemy.player.health);
+            controller.player.MoveUsed[0] = false;
+        }
     }
 
     public void setLightBox()
@@ -56,5 +65,4 @@ public class LightBoxSpawner : MonoBehaviour
         localCollider.pathCount = 0;
         val = hitBoxes.frame2Box;
     }
-
 }

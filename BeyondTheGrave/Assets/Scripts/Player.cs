@@ -14,7 +14,8 @@ public class Player
     public string charState;
     public bool blocking;
     public string name;
-    
+    public bool[] MoveUsed;
+
     public Player()
     {
         health = 10000f;
