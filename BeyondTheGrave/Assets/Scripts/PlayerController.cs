@@ -29,15 +29,31 @@ public class PlayerController : MonoBehaviour
     private bool Idle;
     private float AnimFinish;
 
+    public HashSet<string> ValidStates;
+    private int LastMove;
+    private bool[] UsedAlready;
+
     // Start is called before the first frame update
     void Awake()
     {
         player = new Player();
 
         player.MoveUsed = new bool[4];
+        ValidStates = new HashSet<string>();
+        ValidStates.Add("standing");
+        ValidStates.Add("crouching");
+        ValidStates.Add("hitstun");
+        ValidStates.Add("hitlag");
+        ValidStates.Add("airborn");
         for (int i = 0; i < player.MoveUsed.Length; ++i)
         {
             player.MoveUsed[i] = false;
+        }
+        UsedAlready = (bool[]) player.MoveUsed.Clone();
+        Debug.Log(UsedAlready.Length);
+        for (int i = 0; i < UsedAlready.Length; ++i)
+        {
+            Debug.Log(UsedAlready[i]);
         }
 
         jump = 1;
