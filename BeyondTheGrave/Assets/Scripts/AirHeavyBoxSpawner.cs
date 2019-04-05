@@ -50,6 +50,7 @@ public class AirHeavyBoxSpawner : MonoBehaviour
             enemy.player.health -= damage;
             Debug.Log(enemy.player.health);
             controller.player.MoveUsed[3] = false;
+            controller.HitConfirm = true;
         }
     }
 

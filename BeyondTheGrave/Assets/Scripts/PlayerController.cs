@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     private float AnimFinish;
 
     public HashSet<string> ValidStates;
-    private bool HitConfirm;
+    public bool HitConfirm;
     private int LastMove;
     private bool[] UsedAlready;
 
@@ -78,6 +78,32 @@ public class PlayerController : MonoBehaviour
     {
         jumpInput = Input.GetAxisRaw(VerticalControl);
         directionalInput = new Vector2(Input.GetAxisRaw(HorizontalControl), Input.GetAxisRaw(VerticalControl));
+        if (AnimFinish > 0)
+        {
+            if (HitConfirm)
+            {
+                if (Input.GetButtonDown(LightButton))
+                {
+                    Light = true;
+                    AnimFinish = .25f;
+                    if (grounded)
+                        player.MoveUsed[0] = true;
+                    else
+                        player.MoveUsed[2] = true;
+                    HitConfirm = false;
+                }
+                else if (Input.GetButtonDown(HeavyButton))
+                {
+                    Heavy = true;
+                    AnimFinish = .417f;
+                    if (grounded)
+                        player.MoveUsed[1] = true;
+                    else
+                        player.MoveUsed[3] = true;
+                    HitConfirm = false;
+                }
+            }
+        }
         if (grounded && AnimFinish <= 0f)
         {
             rb.AddForce(new Vector2((directionalInput.x * friction - rb.velocity.x) * friction, 0));
@@ -126,6 +152,7 @@ public class PlayerController : MonoBehaviour
         grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - halfHeight - 0.04f), Vector2.down, 0.025f);
 
         lastJumpInput = Input.GetAxisRaw(VerticalControl);
+        anim.SetBool("Hit Confirm", HitConfirm);
         anim.SetBool("Grounded", grounded);
         ExecuteAnim();
     }

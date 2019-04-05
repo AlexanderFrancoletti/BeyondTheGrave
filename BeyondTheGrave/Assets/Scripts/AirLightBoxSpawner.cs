@@ -49,6 +49,7 @@ public class AirLightBoxSpawner : MonoBehaviour
             enemy.player.health -= damage;
             Debug.Log(enemy.player.health);
             controller.player.MoveUsed[2] = false;
+            controller.HitConfirm = true;
         }
     }
 

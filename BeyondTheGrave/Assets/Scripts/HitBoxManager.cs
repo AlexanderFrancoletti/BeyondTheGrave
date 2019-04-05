@@ -51,6 +51,7 @@ public class HitBoxManager : MonoBehaviour
             enemy.player.health -= damage;
             Debug.Log(enemy.player.health);
             controller.player.MoveUsed[1] = false;
+            controller.HitConfirm = true;
         }
     }
 
