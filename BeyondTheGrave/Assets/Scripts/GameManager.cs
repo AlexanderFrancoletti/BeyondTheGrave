@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
         }
         else if (Player2.player.health <= 0)
         {
+            SceneManager.LoadScene("Win Screen");
             Debug.Log("Player 1 Win");
         }
         else if (Player1.player.health <= 0)

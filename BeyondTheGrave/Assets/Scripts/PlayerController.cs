@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private float AnimFinish;
 
     public HashSet<string> ValidStates;
+    private bool HitConfirm;
     private int LastMove;
     private bool[] UsedAlready;
 
@@ -49,8 +50,10 @@ public class PlayerController : MonoBehaviour
         {
             player.MoveUsed[i] = false;
         }
+
         UsedAlready = (bool[]) player.MoveUsed.Clone();
         Debug.Log(UsedAlready.Length);
+
         for (int i = 0; i < UsedAlready.Length; ++i)
         {
             Debug.Log(UsedAlready[i]);
@@ -67,6 +70,7 @@ public class PlayerController : MonoBehaviour
         Feint = false;
         Idle = true;
         AnimFinish = 0f;
+        HitConfirm = false;
     }
 
     // Update is called once per frame
