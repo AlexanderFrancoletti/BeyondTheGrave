@@ -90,7 +90,6 @@ public class PlayerController : MonoBehaviour
                         player.MoveUsed[0] = true;
                     else
                         player.MoveUsed[2] = true;
-                    HitConfirm = false;
                 }
                 else if (Input.GetButtonDown(HeavyButton))
                 {
@@ -100,7 +99,6 @@ public class PlayerController : MonoBehaviour
                         player.MoveUsed[1] = true;
                     else
                         player.MoveUsed[3] = true;
-                    HitConfirm = false;
                 }
             }
         }
@@ -143,17 +141,25 @@ public class PlayerController : MonoBehaviour
                 AnimFinish = .417f;
                 player.MoveUsed[3] = true;
             }
-        }
+        }   //Should only get called when the player has movement control
         else if (AnimFinish <= 0f)
         {
             rb.AddForce(new Vector2((directionalInput.x / 2 * friction - rb.velocity.x) * friction, 0));
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
         }
+        if (AnimFinish <= 0f)
+        {
+            for (int i = 0; i < player.MoveUsed.Length; ++i)
+            {
+                player.MoveUsed[i] = false;
+            }
+            HitConfirm = false;
+        }
         grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - halfHeight - 0.04f), Vector2.down, 0.025f);
 
         lastJumpInput = Input.GetAxisRaw(VerticalControl);
-        anim.SetBool("Hit Confirm", HitConfirm);
         anim.SetBool("Grounded", grounded);
+        anim.SetBool("HitConfirm", HitConfirm);
         ExecuteAnim();
     }
 
