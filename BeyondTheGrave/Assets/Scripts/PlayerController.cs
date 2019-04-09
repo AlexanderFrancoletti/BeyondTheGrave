@@ -27,12 +27,14 @@ public class PlayerController : MonoBehaviour
     private bool Special;
     private bool Feint;
     private bool Idle;
-    private float AnimFinish;
+    public float AnimFinish;
 
     public HashSet<string> ValidStates;
     public bool HitConfirm;
     private int LastMove;
     private bool[] UsedAlready;
+    public float stunTime;
+    public int combo;
 
     // Start is called before the first frame update
     void Awake()
@@ -71,6 +73,8 @@ public class PlayerController : MonoBehaviour
         Idle = true;
         AnimFinish = 0f;
         HitConfirm = false;
+        combo = 0;
+        stunTime = 0f;
     }
 
     // Update is called once per frame
@@ -78,84 +82,88 @@ public class PlayerController : MonoBehaviour
     {
         jumpInput = Input.GetAxisRaw(VerticalControl);
         directionalInput = new Vector2(Input.GetAxisRaw(HorizontalControl), Input.GetAxisRaw(VerticalControl));
-        if (AnimFinish > 0)
+        if (stunTime <= 0)
         {
-            if (HitConfirm)
+            if (AnimFinish > 0)
             {
-                if (Input.GetButtonDown(LightButton))
+                if (HitConfirm)
                 {
-                    Light = true;
-                    AnimFinish = .25f;
-                    if (grounded)
+                    if (Input.GetButtonDown(LightButton))
+                    {
+                        Light = true;
+                        AnimFinish = .25f;
+                        if (grounded)
+                            player.MoveUsed[0] = true;
+                        else
+                            player.MoveUsed[2] = true;
+                    }
+                    else if (Input.GetButtonDown(HeavyButton))
+                    {
+                        Heavy = true;
+                        AnimFinish = .417f;
+                        if (grounded)
+                            player.MoveUsed[1] = true;
+                        else
+                            player.MoveUsed[3] = true;
+                    }
+                }
+            }
+            if (grounded && AnimFinish <= 0f)
+            {
+                rb.AddForce(new Vector2((directionalInput.x * friction - rb.velocity.x) * friction, 0));
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+                if (jumpInput > 0f && lastJumpInput <= 0f)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, player.jumpSpeed * 6f);
+                    grounded = false;
+                }
+                if (grounded)
+                {
+                    if (Input.GetButtonDown(LightButton))
+                    {
+                        Light = true;
+                        AnimFinish = .25f;
                         player.MoveUsed[0] = true;
-                    else
-                        player.MoveUsed[2] = true;
-                }
-                else if (Input.GetButtonDown(HeavyButton))
-                {
-                    Heavy = true;
-                    AnimFinish = .417f;
-                    if (grounded)
+                    }
+                    else if (Input.GetButtonDown(HeavyButton))
+                    {
+                        Heavy = true;
+                        AnimFinish = .417f;
                         player.MoveUsed[1] = true;
-                    else
-                        player.MoveUsed[3] = true;
+                    }
                 }
             }
-        }
-        if (grounded && AnimFinish <= 0f)
-        {
-            rb.AddForce(new Vector2((directionalInput.x * friction - rb.velocity.x) * friction, 0));
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
-            if (jumpInput > 0f && lastJumpInput <= 0f)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, player.jumpSpeed * 6f);
-                grounded = false;
-            }
-            if (grounded)
+            else if (!grounded && AnimFinish <= 0f)
             {
                 if (Input.GetButtonDown(LightButton))
                 {
                     Light = true;
                     AnimFinish = .25f;
-                    player.MoveUsed[0] = true;
+                    player.MoveUsed[2] = true;
                 }
                 else if (Input.GetButtonDown(HeavyButton))
                 {
                     Heavy = true;
                     AnimFinish = .417f;
-                    player.MoveUsed[1] = true;
+                    player.MoveUsed[3] = true;
                 }
-            }
-        }
-        else if (!grounded && AnimFinish <= 0f)
-        {
-            if (Input.GetButtonDown(LightButton))
+            }   //Should only get called when the player has movement control
+            else if (AnimFinish <= 0f)
             {
-                Light = true;
-                AnimFinish = .25f;
-                player.MoveUsed[2] = true;
+                rb.AddForce(new Vector2((directionalInput.x / 2 * friction - rb.velocity.x) * friction, 0));
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
             }
-            else if (Input.GetButtonDown(HeavyButton))
+            if (AnimFinish <= 0f)
             {
-                Heavy = true;
-                AnimFinish = .417f;
-                player.MoveUsed[3] = true;
+                for (int i = 0; i < player.MoveUsed.Length; ++i)
+                {
+                    player.MoveUsed[i] = false;
+                }
+                HitConfirm = false;
             }
-        }   //Should only get called when the player has movement control
-        else if (AnimFinish <= 0f)
-        {
-            rb.AddForce(new Vector2((directionalInput.x / 2 * friction - rb.velocity.x) * friction, 0));
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
-        }
-        if (AnimFinish <= 0f)
-        {
-            for (int i = 0; i < player.MoveUsed.Length; ++i)
-            {
-                player.MoveUsed[i] = false;
-            }
-            HitConfirm = false;
         }
         grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - halfHeight - 0.04f), Vector2.down, 0.025f);
+        stunTime -= Time.deltaTime;
 
         lastJumpInput = Input.GetAxisRaw(VerticalControl);
         anim.SetBool("Grounded", grounded);

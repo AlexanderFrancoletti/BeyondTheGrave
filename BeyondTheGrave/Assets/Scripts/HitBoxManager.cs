@@ -47,11 +47,23 @@ public class HitBoxManager : MonoBehaviour
     {
         if (controller.player.MoveUsed[1])
         {
-            Debug.Log("Collider hit something!");
+            if (enemy.stunTime > 0)
+            {
+                Debug.Log("Combo: " + controller.combo);
+            }
+            if (enemy.stunTime <= 0)
+            {
+                controller.combo = 0;
+            }
+            //Debug.Log("Collider hit something!");
             enemy.player.health -= damage;
             Debug.Log(enemy.player.health);
             controller.player.MoveUsed[1] = false;
             controller.HitConfirm = true;
+            enemy.player.charState = "hitstun";
+            enemy.stunTime = .417f* 2f;
+            controller.combo += 1;
+            //Debug.Log(enemy.stunTime);
         }
     }
 

@@ -44,13 +44,26 @@ public class LightBoxSpawner : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        
         if (controller.player.MoveUsed[0])
         {
-            Debug.Log("Collider hit something!");
+            if (enemy.stunTime > 0)
+            {
+                Debug.Log("Combo: " + controller.combo);
+            }
+            if (enemy.stunTime <= 0)
+            {
+                controller.combo = 0;
+            }
+            //Debug.Log("Collider hit something!");
             enemy.player.health -= damage;
             Debug.Log(enemy.player.health);
             controller.player.MoveUsed[0] = false;
             controller.HitConfirm = true;
+            enemy.player.charState = "hitstun";
+            enemy.stunTime = .25f * 2;
+            controller.combo += 1;
+            //Debug.Log(enemy.stunTime);
         }
     }
 
