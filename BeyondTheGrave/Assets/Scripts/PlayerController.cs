@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         player = new Player();
 
-        player.MoveUsed = new bool[4];
+        player.MoveUsed = new bool[18];
         ValidStates = new HashSet<string>();
         ValidStates.Add("standing");
         ValidStates.Add("crouching");
@@ -101,8 +101,12 @@ public class PlayerController : MonoBehaviour
                     {
                         Heavy = true;
                         AnimFinish = .417f;
-                        if (grounded)
+                        if (grounded && directionalInput.x == 0 && directionalInput.y == 0)
                             player.MoveUsed[1] = true;
+                        else if (grounded && directionalInput.x == 0 && directionalInput.y == -1) { 
+                            player.MoveUsed[4] = true;
+                            AnimFinish = .5f;
+                        }
                         else
                             player.MoveUsed[3] = true;
                     }
@@ -128,8 +132,16 @@ public class PlayerController : MonoBehaviour
                     else if (Input.GetButtonDown(HeavyButton))
                     {
                         Heavy = true;
-                        AnimFinish = .417f;
-                        player.MoveUsed[1] = true;
+                        if (Input.GetAxis(VerticalControl) < -.5f)
+                        {
+                            AnimFinish = .5f;
+                            player.MoveUsed[4] = true;
+                        }
+                        else
+                        {
+                            AnimFinish = .417f;
+                            player.MoveUsed[1] = true;
+                        }
                     }
                 }
             }
@@ -168,6 +180,8 @@ public class PlayerController : MonoBehaviour
         lastJumpInput = Input.GetAxisRaw(VerticalControl);
         anim.SetBool("Grounded", grounded);
         anim.SetBool("HitConfirm", HitConfirm);
+        anim.SetFloat("VerInput", directionalInput.y);
+        anim.SetFloat("HorInput", directionalInput.x);
         ExecuteAnim();
     }
 
