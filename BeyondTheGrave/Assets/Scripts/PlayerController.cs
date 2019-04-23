@@ -93,22 +93,43 @@ public class PlayerController : MonoBehaviour
                         Light = true;
                         AnimFinish = .25f;
                         if (grounded)
+                        {
                             player.MoveUsed[0] = true;
+                            LastMove = 0;
+                        }
                         else
+                        {
                             player.MoveUsed[2] = true;
+                            LastMove = 2;
+                        }
                     }
                     else if (Input.GetButtonDown(HeavyButton))
                     {
                         Heavy = true;
                         AnimFinish = .417f;
                         if (grounded && directionalInput.x == 0 && directionalInput.y == 0)
+                        {
                             player.MoveUsed[1] = true;
+                            LastMove = 1;
+                        }
                         else if (grounded && directionalInput.x == 0 && directionalInput.y == -1) { 
                             player.MoveUsed[4] = true;
+                            LastMove = 4;
                             AnimFinish = .5f;
                         }
                         else
+                        {
                             player.MoveUsed[3] = true;
+                            LastMove = 3;
+                        }
+                    }
+                }
+                if (LastMove == 4)
+                {
+                    if (jumpInput > 0f && lastJumpInput <= 0f)
+                    {
+                        rb.velocity = new Vector2(rb.velocity.x, player.jumpSpeed * 6f);
+                        grounded = false;
                     }
                 }
             }
@@ -128,6 +149,7 @@ public class PlayerController : MonoBehaviour
                         Light = true;
                         AnimFinish = .25f;
                         player.MoveUsed[0] = true;
+                        LastMove = 0;
                     }
                     else if (Input.GetButtonDown(HeavyButton))
                     {
@@ -136,11 +158,13 @@ public class PlayerController : MonoBehaviour
                         {
                             AnimFinish = .5f;
                             player.MoveUsed[4] = true;
+                            LastMove = 4;
                         }
                         else
                         {
                             AnimFinish = .417f;
                             player.MoveUsed[1] = true;
+                            LastMove = 1;
                         }
                     }
                 }
@@ -152,12 +176,14 @@ public class PlayerController : MonoBehaviour
                     Light = true;
                     AnimFinish = .25f;
                     player.MoveUsed[2] = true;
+                    LastMove = 2;
                 }
                 else if (Input.GetButtonDown(HeavyButton))
                 {
                     Heavy = true;
                     AnimFinish = .417f;
                     player.MoveUsed[3] = true;
+                    LastMove = 3;
                 }
             }   //Should only get called when the player has movement control
             else if (AnimFinish <= 0f)
@@ -172,17 +198,22 @@ public class PlayerController : MonoBehaviour
                     player.MoveUsed[i] = false;
                 }
                 HitConfirm = false;
+                LastMove = -1;
             }
         }
         grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - halfHeight - 0.04f), Vector2.down, 0.025f);
         stunTime -= Time.deltaTime;
-
+        if (stunTime > 0)
+            Debug.Log("In stun");
+        else
+            Debug.Log("No stun");
         lastJumpInput = Input.GetAxisRaw(VerticalControl);
         anim.SetBool("Grounded", grounded);
         anim.SetBool("HitConfirm", HitConfirm);
         anim.SetFloat("VerInput", directionalInput.y);
         anim.SetFloat("HorInput", directionalInput.x);
         ExecuteAnim();
+        Debug.Log(LastMove);
     }
 
     public void ExecuteAnim()

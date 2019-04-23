@@ -45,6 +45,7 @@ public class AirLightBoxSpawner : MonoBehaviour
     {
         if (controller.player.MoveUsed[2])
         {
+            controller.combo += 1;
             if (enemy.stunTime > 0)
             {
                 Debug.Log("Combo: " + controller.combo);
@@ -60,7 +61,6 @@ public class AirLightBoxSpawner : MonoBehaviour
             controller.HitConfirm = true;
             enemy.player.charState = "hitstun";
             enemy.stunTime = .25f * 2f;
-            controller.combo += 1;
             //Debug.Log(enemy.stunTime);
         }
     }

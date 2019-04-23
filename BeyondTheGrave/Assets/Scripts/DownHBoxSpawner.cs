@@ -47,6 +47,7 @@ public class DownHBoxSpawner : MonoBehaviour
 
         if (controller.player.MoveUsed[4])
         {
+            controller.combo += 1;
             if (enemy.stunTime > 0)
             {
                 Debug.Log("Combo: " + controller.combo);
@@ -61,8 +62,7 @@ public class DownHBoxSpawner : MonoBehaviour
             controller.player.MoveUsed[0] = false;
             controller.HitConfirm = true;
             enemy.player.charState = "hitstun";
-            enemy.stunTime = .5f * 2;
-            controller.combo += 1;
+            enemy.stunTime = 1f * 2;
             //Debug.Log(enemy.stunTime);
         }
     }

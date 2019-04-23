@@ -47,6 +47,7 @@ public class HitBoxManager : MonoBehaviour
     {
         if (controller.player.MoveUsed[1])
         {
+            controller.combo += 1;
             if (enemy.stunTime > 0)
             {
                 Debug.Log("Combo: " + controller.combo);
@@ -62,7 +63,6 @@ public class HitBoxManager : MonoBehaviour
             controller.HitConfirm = true;
             enemy.player.charState = "hitstun";
             enemy.stunTime = .417f* 2f;
-            controller.combo += 1;
             //Debug.Log(enemy.stunTime);
         }
     }
