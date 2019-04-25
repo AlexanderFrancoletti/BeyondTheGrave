@@ -144,14 +144,14 @@ public class PlayerController : MonoBehaviour
                 }
                 if (grounded)
                 {
-                    if (Input.GetButtonDown(LightButton))
+                    if (Input.GetButtonDown(LightButton) && !Input.GetButton(FakeButton))
                     {
                         Light = true;
                         AnimFinish = .25f;
                         player.MoveUsed[0] = true;
                         LastMove = 0;
                     }
-                    else if (Input.GetButtonDown(HeavyButton))
+                    else if (Input.GetButtonDown(HeavyButton) && !Input.GetButton(FakeButton))
                     {
                         Heavy = true;
                         if (Input.GetAxis(VerticalControl) < -.5f)
@@ -167,23 +167,57 @@ public class PlayerController : MonoBehaviour
                             LastMove = 1;
                         }
                     }
+                    else if (Input.GetButtonDown(SpecialButton) && !Input.GetButton(FakeButton))
+                    {
+                        Special = true;
+                        AnimFinish = .417f;
+                        player.MoveUsed[5] = true;
+                        LastMove = 5;
+                    }
+                    else if (Input.GetButton(FakeButton))
+                    {
+                        if (Input.GetButtonDown(LightButton))
+                            Light = true;
+                        else if (Input.GetButtonDown(HeavyButton))
+                            Heavy = true;
+                        else if (Input.GetButtonDown(SpecialButton))
+                            Special = true;
+                        Feint = true;
+                    }
                 }
             }
             else if (!grounded && AnimFinish <= 0f)
             {
-                if (Input.GetButtonDown(LightButton))
+                if (Input.GetButtonDown(LightButton) && !Input.GetButton(FakeButton))
                 {
                     Light = true;
                     AnimFinish = .25f;
                     player.MoveUsed[2] = true;
                     LastMove = 2;
                 }
-                else if (Input.GetButtonDown(HeavyButton))
+                else if (Input.GetButtonDown(HeavyButton) && !Input.GetButton(FakeButton))
                 {
                     Heavy = true;
                     AnimFinish = .417f;
                     player.MoveUsed[3] = true;
                     LastMove = 3;
+                }
+                else if (Input.GetButtonDown(SpecialButton) && !Input.GetButton(FakeButton))
+                {
+                    Special = true;
+                    AnimFinish = .417f;
+                    player.MoveUsed[6] = true;
+                    LastMove = 6;
+                }
+                else if (Input.GetButton(FakeButton))
+                {
+                    if (Input.GetButtonDown(LightButton))
+                        Light = true;
+                    else if (Input.GetButtonDown(HeavyButton))
+                        Heavy = true;
+                    else if (Input.GetButtonDown(SpecialButton))
+                        Special = true;
+                    Feint = true;
                 }
             }   //Should only get called when the player has movement control
             else if (AnimFinish <= 0f)
@@ -207,11 +241,14 @@ public class PlayerController : MonoBehaviour
             Debug.Log("In stun");
         else
             Debug.Log("No stun");
+        if (Input.GetButtonUp(FakeButton))
+            Feint = false;
         lastJumpInput = Input.GetAxisRaw(VerticalControl);
         anim.SetBool("Grounded", grounded);
         anim.SetBool("HitConfirm", HitConfirm);
         anim.SetFloat("VerInput", directionalInput.y);
         anim.SetFloat("HorInput", directionalInput.x);
+        anim.SetBool("Feint", Feint);
         ExecuteAnim();
         Debug.Log(LastMove);
     }
@@ -232,15 +269,15 @@ public class PlayerController : MonoBehaviour
         }
         else if (Special)
         {
+            anim.SetTrigger("Special");
             anim.SetBool("Idle", false);
+            Special = false;
         }
         else if (Feint)
-        {
             anim.SetBool("Idle", false);
-        }
         else if (AnimFinish >= 0)
         {
-            AnimFinish-= Time.deltaTime;
+            AnimFinish -= Time.deltaTime;
             anim.SetBool("Idle", false);
         }
         else
