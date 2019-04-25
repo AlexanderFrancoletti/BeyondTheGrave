@@ -11,15 +11,15 @@ public class ProjectileSpawner : MonoBehaviour
 
     public void Spawn5S()
     {
-        newProj = Instantiate(SProjectile, controller.transform.position, controller.transform.rotation) as GameObject;
+        newProj = Instantiate(SProjectile, controller.transform.position+new Vector3(2, 0, 0), controller.transform.rotation) as GameObject;
         newProj.SetActive(true);
-        controller.rb.AddForce(new Vector2((newProj.GetComponent<Projectile>().speed *  -controller.rb.velocity.x) * controller.player.speed*2, 0));
+        controller.rb.AddForce(new Vector2((controller.player.speed - controller.rb.velocity.x) * controller.player.speed * 50, 0));
     }
 
     public void SpawnJ5S()
     {
-        newProj = Instantiate(jSProjectile, controller.transform.position, controller.transform.rotation) as GameObject;
+        newProj = Instantiate(jSProjectile, controller.transform.position+new Vector3(2, -2, 0), controller.transform.rotation) as GameObject;
         newProj.SetActive(true);
-        //controller.rb.AddForce(new Vector2((newProj.GetComponent<Projectile>().speed * -controller.rb.velocity.x) * controller.player.speed * 2, 0));
+        controller.rb.AddForce(new Vector2((controller.player.speed - controller.rb.velocity.x) * controller.player.speed * 25, (controller.player.speed - controller.rb.velocity.x) * controller.player.speed * -25));
     }
 }

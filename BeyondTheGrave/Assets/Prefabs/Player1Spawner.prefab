@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 5473063852432572405}
   - component: {fileID: 5473063852432572407}
   - component: {fileID: 5473063852432572406}
+  - component: {fileID: 5473063852786736546}
+  - component: {fileID: 5473063852786736555}
   m_Layer: 9
   m_Name: Player1Spawner
   m_TagString: Untagged
@@ -108,6 +110,10 @@ MonoBehaviour:
   SpecialButton: SpecialP1
   FakeButton: FeintP1
   anim: {fileID: 5473063852432572403}
+  AnimFinish: 0
+  HitConfirm: 0
+  stunTime: 0
+  combo: 0
 --- !u!50 &5473063852432572402
 Rigidbody2D:
   serializedVersion: 4
@@ -214,6 +220,37 @@ MonoBehaviour:
   controller: {fileID: 5473063852432572401}
   box1: {fileID: 0}
   box2: {fileID: 0}
+--- !u!114 &5473063852786736546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5473063852432572397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e325c0a33e41946b84903460c51a38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1000
+  enemy: {fileID: 0}
+  controller: {fileID: 5473063852432572401}
+  box1: {fileID: 0}
+--- !u!114 &5473063852786736555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5473063852432572397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d10867c125d0f140948f54d1a45cb40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SProjectile: {fileID: 0}
+  jSProjectile: {fileID: 0}
+  controller: {fileID: 5473063852432572401}
 --- !u!1 &5473063853436258946
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +295,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.05}
-  m_Size: {x: 0.52, y: 1.1}
+  m_Offset: {x: 0, y: 0.03}
+  m_Size: {x: 0.52, y: 1}
   m_Direction: 0
