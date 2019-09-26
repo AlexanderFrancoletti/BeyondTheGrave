@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     public float stunTime;
     public int combo;
 
+    public int speedMod = 5;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -62,7 +64,7 @@ public class PlayerController : MonoBehaviour
         }
 
         jump = 1;
-        friction = player.speed*2;
+        friction = player.speed*2*speedMod;
         halfHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
         grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - halfHeight - 0.04f), Vector2.down, 0.025f);
         anim = GetComponent<Animator>();
