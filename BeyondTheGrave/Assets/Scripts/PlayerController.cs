@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     private int jump;
     private Vector2 directionalInput;
     private float jumpInput;
-    private float lastJumpInput;
     private Vector2 Velocity;
     private float friction;
     private float halfHeight;
@@ -128,7 +127,7 @@ public class PlayerController : MonoBehaviour
                 }
                 if (LastMove == 4)
                 {
-                    if (jumpInput > 0f && lastJumpInput <= 0f)
+                    if (jumpInput > 0f)
                     {
                         rb.velocity = new Vector2(rb.velocity.x, player.jumpSpeed * 6f);
                         grounded = false;
@@ -139,7 +138,7 @@ public class PlayerController : MonoBehaviour
             {
                 rb.AddForce(new Vector2((directionalInput.x * friction - rb.velocity.x) * friction, 0));
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
-                if (jumpInput > 0f && lastJumpInput <= 0f)
+                if (jumpInput > 0f)
                 {
                     rb.velocity = new Vector2(rb.velocity.x, player.jumpSpeed * 6f);
                     grounded = false;
@@ -245,7 +244,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log("No stun");
         if (Input.GetButtonUp(FakeButton))
             Feint = false;
-        lastJumpInput = Input.GetAxisRaw(VerticalControl);
         anim.SetBool("Grounded", grounded);
         anim.SetBool("HitConfirm", HitConfirm);
         anim.SetFloat("VerInput", directionalInput.y);
