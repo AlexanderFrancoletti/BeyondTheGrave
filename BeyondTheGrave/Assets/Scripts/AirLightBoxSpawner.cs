@@ -45,23 +45,30 @@ public class AirLightBoxSpawner : MonoBehaviour
     {
         if (controller.player.MoveUsed[2])
         {
-            controller.combo += 1;
-            if (enemy.stunTime > 0)
+            if (enemy.player.blocking)
             {
-                Debug.Log("Combo: " + controller.combo);
+                enemy.blockStun = .1f * 2;
             }
-            if (enemy.stunTime <= 0)
+            else
             {
-                controller.combo = 0;
+                controller.combo += 1;
+                if (enemy.stunTime > 0)
+                {
+                    Debug.Log("Combo: " + controller.combo);
+                }
+                if (enemy.stunTime <= 0)
+                {
+                    controller.combo = 0;
+                }
+                //Debug.Log("Collider hit something!");
+                enemy.player.health -= damage;
+                Debug.Log(enemy.player.health);
+                controller.player.MoveUsed[2] = false;
+                controller.HitConfirm = true;
+                enemy.player.charState = "hitstun";
+                enemy.stunTime = .25f * 2f;
+                //Debug.Log(enemy.stunTime);
             }
-            //Debug.Log("Collider hit something!");
-            enemy.player.health -= damage;
-            Debug.Log(enemy.player.health);
-            controller.player.MoveUsed[2] = false;
-            controller.HitConfirm = true;
-            enemy.player.charState = "hitstun";
-            enemy.stunTime = .25f * 2f;
-            //Debug.Log(enemy.stunTime);
         }
     }
 

@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     {
         timer = 100f;
         DisplayTime = (int)timer;
-        display = FindObjectOfType<Text>();
     }
 
     // Update is called once per frame

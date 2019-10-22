@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,13 +28,16 @@ public class PlayerController : MonoBehaviour
     private bool Feint;
     private bool Idle;
     public float AnimFinish;
+    private PlayerController p2;
 
     public HashSet<string> ValidStates;
     public bool HitConfirm;
     private int LastMove;
     private bool[] UsedAlready;
     public float stunTime;
+    public float blockStun;
     public int combo;
+    public Text comboCount;
 
     public int speedMod = 5;
 
@@ -78,12 +82,32 @@ public class PlayerController : MonoBehaviour
         stunTime = 0f;
     }
 
+    public void Start()
+    {
+        foreach (PlayerController p in FindObjectsOfType<PlayerController>())
+        {
+            if (p.tag != this.tag)
+                p2 = p;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         jumpInput = Input.GetAxisRaw(VerticalControl);
         directionalInput = new Vector2(Input.GetAxisRaw(HorizontalControl), Input.GetAxisRaw(VerticalControl));
-        if (stunTime <= 0)
+        if ((directionalInput.x < 0 && (transform.position.x < p2.transform.position.x)) || (directionalInput.x > 0 && (transform.position.x > p2.transform.position.x)))
+        {
+            if (stunTime < 0 && p2.combo < 1)
+                player.blocking = true;
+            else
+                player.blocking = false;
+        }
+        else
+        {
+            player.blocking = false;
+        }
+        if (stunTime <= 0 && blockStun <= 0)
         {
             if (AnimFinish > 0)
             {
@@ -136,8 +160,11 @@ public class PlayerController : MonoBehaviour
             }
             if (grounded && AnimFinish <= 0f)
             {
-                rb.AddForce(new Vector2((directionalInput.x * friction - rb.velocity.x) * friction, 0));
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+                if (directionalInput.y == 0)
+                {
+                    rb.AddForce(new Vector2((directionalInput.x * friction - rb.velocity.x) * friction, 0));
+                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y);
+                }
                 if (jumpInput > 0f)
                 {
                     rb.velocity = new Vector2(rb.velocity.x, player.jumpSpeed * 6f);
@@ -236,8 +263,15 @@ public class PlayerController : MonoBehaviour
                 LastMove = -1;
             }
         }
+        if (combo >= 2)
+        {
+            comboCount.text = combo + " hits";
+        }
+        else
+            comboCount.text = "";
         grounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - halfHeight - 0.04f), Vector2.down, 0.025f);
         stunTime -= Time.deltaTime;
+        blockStun -= Time.deltaTime;
         if (stunTime > 0)
             Debug.Log("In stun");
         else
