@@ -1860,7 +1860,7 @@ PrefabInstance:
     - target: {fileID: 5473063852432572398, guid: 4a5d4f82357c64e419daa18eb5f519d4,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: -5.568066
+      value: 5.568066
       objectReference: {fileID: 0}
     - target: {fileID: 5473063852432572404, guid: 4a5d4f82357c64e419daa18eb5f519d4,
         type: 3}
@@ -3079,12 +3079,12 @@ PrefabInstance:
         type: 3}
       propertyPath: enemy
       value: 
-      objectReference: {fileID: 215312565}
+      objectReference: {fileID: 0}
     - target: {fileID: 1925422562917360908, guid: c0b2e6c06acefb74da0c48ec4f44666a,
         type: 3}
       propertyPath: controller
       value: 
-      objectReference: {fileID: 5473063852786736545}
+      objectReference: {fileID: 0}
     - target: {fileID: 1925422562917360908, guid: c0b2e6c06acefb74da0c48ec4f44666a,
         type: 3}
       propertyPath: mask.m_Bits

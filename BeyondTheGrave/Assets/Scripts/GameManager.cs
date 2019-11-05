@@ -26,34 +26,34 @@ public class GameManager : MonoBehaviour
         display.text = DisplayTime + "";
         if (Player1.player.health <= 0 && Player2.player.health <= 0)
         {
-            SceneManager.LoadScene("Win Screen");
+            SceneManager.LoadScene("DKO");
             Debug.Log("Double Knockout");
         }
         else if (Player2.player.health <= 0)
         {
-            SceneManager.LoadScene("Win Screen");
+            SceneManager.LoadScene("Win1");
             Debug.Log("Player 1 Win");
         }
         else if (Player1.player.health <= 0)
         {
-            SceneManager.LoadScene("Win Screen");
+            SceneManager.LoadScene("Win2");
             Debug.Log("Player 2 Win");
         }
         if (timer <= 0f)
         {
             if (Player1.player.health == Player2.player.health)
             {
-                SceneManager.LoadScene("Win Screen");
+                SceneManager.LoadScene("Draw");
                 Debug.Log("Draw!");
             }
             else if (Player2.player.health < Player1.player.health)
             {
-                SceneManager.LoadScene("Win Screen");
+                SceneManager.LoadScene("Win1Time");
                 Debug.Log("Player 1 Win by time!");
             }
             else if (Player1.player.health < Player2.player.health)
             {
-                SceneManager.LoadScene("Win Screen");
+                SceneManager.LoadScene("Win2Time");
                 Debug.Log("Player 2 Win by time!");
             }
         }

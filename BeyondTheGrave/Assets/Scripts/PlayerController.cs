@@ -28,12 +28,14 @@ public class PlayerController : MonoBehaviour
     private bool Feint;
     private bool Idle;
     public float AnimFinish;
-    private PlayerController p2;
+    public PlayerController p2;
 
     public HashSet<string> ValidStates;
     public bool HitConfirm;
     private int LastMove;
     private bool[] UsedAlready;
+    private float xScale;
+    private float yScale;
     public float stunTime;
     public float blockStun;
     public int combo;
@@ -65,7 +67,8 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(UsedAlready[i]);
         }
-
+        xScale = transform.localScale.x;
+        yScale = transform.localScale.y;
         jump = 1;
         friction = player.speed*2*speedMod;
         halfHeight = transform.GetComponent<SpriteRenderer>().bounds.extents.y;
@@ -96,6 +99,11 @@ public class PlayerController : MonoBehaviour
     {
         jumpInput = Input.GetAxisRaw(VerticalControl);
         directionalInput = new Vector2(Input.GetAxisRaw(HorizontalControl), Input.GetAxisRaw(VerticalControl));
+        if (transform.position.x < p2.transform.position.x)
+            transform.localScale = new Vector2(xScale, yScale);
+        else
+            transform.localScale = new Vector2(xScale*-1, yScale);
+
         if ((directionalInput.x < 0 && (transform.position.x < p2.transform.position.x)) || (directionalInput.x > 0 && (transform.position.x > p2.transform.position.x)))
         {
             if (stunTime < 0 && p2.combo < 1)
