@@ -23,7 +23,7 @@ public class ProjectileSpawner : MonoBehaviour
             newProj = Instantiate(SProjectile, controller.transform.position + new Vector3(2, 0, 0), controller.transform.rotation) as GameObject;
         }
         newProj.GetComponent<Projectile>().controller = controller.gameObject;
-        newProj.GetComponent<Projectile>().enemy = this.GetComponentInParent<PlayerController>().p2.gameObject;
+        newProj.GetComponent<Projectile>().enemy = this.GetComponentInParent<PlayerController>().p2.gameObject.GetComponentInChildren<CapsuleCollider2D>().gameObject;
         newProj.SetActive(true);
         controller.rb.AddForce(new Vector2((controller.player.speed - controller.rb.velocity.x) * controller.player.speed * 50, 0));
     }
@@ -40,7 +40,7 @@ public class ProjectileSpawner : MonoBehaviour
             newProj = Instantiate(jSProjectile, controller.transform.position + new Vector3(2, -2, 0), controller.transform.rotation) as GameObject;
         }
         newProj.GetComponent<Projectile>().controller = controller.gameObject;
-        newProj.GetComponent<Projectile>().enemy = this.GetComponentInParent<PlayerController>().p2.gameObject;
+        newProj.GetComponent<Projectile>().enemy = this.GetComponentInParent<PlayerController>().p2.gameObject.GetComponentInChildren<CapsuleCollider2D>().gameObject;
         newProj.SetActive(true);
         controller.rb.AddForce(new Vector2((controller.player.speed - controller.rb.velocity.x) * controller.player.speed * 25, (controller.player.speed - controller.rb.velocity.x) * controller.player.speed * -25));
     }

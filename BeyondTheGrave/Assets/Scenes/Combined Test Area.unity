@@ -2694,7 +2694,7 @@ PrefabInstance:
     - target: {fileID: 3455461509525931008, guid: 6bf5ab14ea955d640bf6e3b2d56f629f,
         type: 3}
       propertyPath: mask.m_Bits
-      value: 14592
+      value: 8448
       objectReference: {fileID: 0}
     - target: {fileID: 3455461509525931008, guid: 6bf5ab14ea955d640bf6e3b2d56f629f,
         type: 3}
@@ -3088,7 +3088,7 @@ PrefabInstance:
     - target: {fileID: 1925422562917360908, guid: c0b2e6c06acefb74da0c48ec4f44666a,
         type: 3}
       propertyPath: mask.m_Bits
-      value: 14592
+      value: 8448
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0b2e6c06acefb74da0c48ec4f44666a, type: 3}

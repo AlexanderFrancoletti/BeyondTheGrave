@@ -23,12 +23,12 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject == enemy)
         {
-            enemy.GetComponent<PlayerController>().player.health -= damage;
-            Debug.Log(enemy.GetComponent<PlayerController>().player.health);
+            enemy.GetComponentInParent<PlayerController>().player.health -= damage;
+            Debug.Log(enemy.GetComponentInParent<PlayerController>().player.health);
             controller.GetComponent<PlayerController>().player.MoveUsed[moveId] = false;
             controller.GetComponent<PlayerController>().HitConfirm = true;
-            enemy.GetComponent<PlayerController>().player.charState = "hitstun";
-            enemy.GetComponent<PlayerController>().stunTime = stunMod * 2;
+            enemy.GetComponentInParent<PlayerController>().player.charState = "hitstun";
+            enemy.GetComponentInParent<PlayerController>().stunTime = stunMod * 2;
             Destroy(this.gameObject);
         }
         else if (collision.gameObject.layer == mask)

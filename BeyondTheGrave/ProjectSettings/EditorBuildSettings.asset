@@ -14,4 +14,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Combined Test Area.unity
     guid: a5dd314b5c74c84478276540035dc014
+  - enabled: 1
+    path: Assets/Scenes/DKO.unity
+    guid: ad82ae0b291e92b48a674dd3b29bacce
+  - enabled: 1
+    path: Assets/Scenes/Draw.unity
+    guid: d55522289e43d3242ac1db531a764a46
+  - enabled: 1
+    path: Assets/Scenes/Win1Time.unity
+    guid: 852c87f682b5c3f47882f961701126e4
+  - enabled: 1
+    path: Assets/Scenes/Win2.unity
+    guid: abbc1e8ac5d203c429d01a969153de5c
+  - enabled: 1
+    path: Assets/Scenes/Win2Time.unity
+    guid: 796548f510f434140a1db0a734c0ee84
   m_configObjects: {}
