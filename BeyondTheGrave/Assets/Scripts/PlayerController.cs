@@ -123,38 +123,11 @@ public class PlayerController : MonoBehaviour
                 {
                     if (Input.GetButtonDown(LightButton))
                     {
-                        Light = true;
-                        AnimFinish = .25f;
-                        if (grounded)
-                        {
-                            player.MoveUsed[0] = true;
-                            LastMove = 0;
-                        }
-                        else
-                        {
-                            player.MoveUsed[2] = true;
-                            LastMove = 2;
-                        }
+                        comboLight();
                     }
                     else if (Input.GetButtonDown(HeavyButton))
                     {
-                        Heavy = true;
-                        AnimFinish = .417f;
-                        if (grounded && directionalInput.x == 0 && directionalInput.y == 0)
-                        {
-                            player.MoveUsed[1] = true;
-                            LastMove = 1;
-                        }
-                        else if (grounded && directionalInput.x == 0 && directionalInput.y == -1) { 
-                            player.MoveUsed[4] = true;
-                            LastMove = 4;
-                            AnimFinish = .5f;
-                        }
-                        else
-                        {
-                            player.MoveUsed[3] = true;
-                            LastMove = 3;
-                        }
+                        comboHeavy(directionalInput);
                     }
                 }
                 if (LastMove == 4)
@@ -182,33 +155,15 @@ public class PlayerController : MonoBehaviour
                 {
                     if (Input.GetButtonDown(LightButton) && !Input.GetButton(FakeButton))
                     {
-                        Light = true;
-                        AnimFinish = .25f;
-                        player.MoveUsed[0] = true;
-                        LastMove = 0;
+                        useGroundLight();
                     }
                     else if (Input.GetButtonDown(HeavyButton) && !Input.GetButton(FakeButton))
                     {
-                        Heavy = true;
-                        if (Input.GetAxis(VerticalControl) < -.5f)
-                        {
-                            AnimFinish = .5f;
-                            player.MoveUsed[4] = true;
-                            LastMove = 4;
-                        }
-                        else
-                        {
-                            AnimFinish = .417f;
-                            player.MoveUsed[1] = true;
-                            LastMove = 1;
-                        }
+                        useGroundHeavy(directionalInput);
                     }
                     else if (Input.GetButtonDown(SpecialButton) && !Input.GetButton(FakeButton))
                     {
-                        Special = true;
-                        AnimFinish = .417f;
-                        player.MoveUsed[5] = true;
-                        LastMove = 5;
+                        useGroundSpecial();
                     }
                     else if (Input.GetButton(FakeButton))
                     {
@@ -226,24 +181,15 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetButtonDown(LightButton) && !Input.GetButton(FakeButton))
                 {
-                    Light = true;
-                    AnimFinish = .25f;
-                    player.MoveUsed[2] = true;
-                    LastMove = 2;
+                    useJumpLight();
                 }
                 else if (Input.GetButtonDown(HeavyButton) && !Input.GetButton(FakeButton))
                 {
-                    Heavy = true;
-                    AnimFinish = .417f;
-                    player.MoveUsed[3] = true;
-                    LastMove = 3;
+                    useJumpHeavy();
                 }
                 else if (Input.GetButtonDown(SpecialButton) && !Input.GetButton(FakeButton))
                 {
-                    Special = true;
-                    AnimFinish = .417f;
-                    player.MoveUsed[6] = true;
-                    LastMove = 6;
+                    useJumpSpecial();
                 }
                 else if (Input.GetButton(FakeButton))
                 {
@@ -293,6 +239,102 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("Feint", Feint);
         ExecuteAnim();
         Debug.Log(LastMove);
+    }
+
+    //API For the AI controller
+    public void comboLight()
+    {
+        Light = true;
+        AnimFinish = .25f;
+        if (grounded)
+        {
+            player.MoveUsed[0] = true;
+            LastMove = 0;
+        }
+        else
+        {
+            player.MoveUsed[2] = true;
+            LastMove = 2;
+        }
+    }
+
+    public void comboHeavy(Vector2 inputDir)
+    {
+        Heavy = true;
+        AnimFinish = .417f;
+        if (grounded && inputDir.y == 0)
+        {
+            player.MoveUsed[1] = true;
+            LastMove = 1;
+        }
+        else if (grounded && inputDir.y == -1)
+        {
+            player.MoveUsed[4] = true;
+            LastMove = 4;
+            AnimFinish = .5f;
+        }
+        else
+        {
+            player.MoveUsed[3] = true;
+            LastMove = 3;
+        }
+    }
+
+    public void useGroundLight()
+    {
+        Light = true;
+        AnimFinish = .25f;
+        player.MoveUsed[0] = true;
+        LastMove = 0;
+    }
+
+    public void useGroundHeavy(Vector2 inputDir)
+    {
+        Heavy = true;
+        if (inputDir.y < -.5f)
+        {
+            AnimFinish = .5f;
+            player.MoveUsed[4] = true;
+            LastMove = 4;
+        }
+        else
+        {
+            AnimFinish = .417f;
+            player.MoveUsed[1] = true;
+            LastMove = 1;
+        }
+    }
+
+    public void useGroundSpecial()
+    {
+        Special = true;
+        AnimFinish = .417f;
+        player.MoveUsed[5] = true;
+        LastMove = 5;
+    }
+
+    public void useJumpLight()
+    {
+        Light = true;
+        AnimFinish = .25f;
+        player.MoveUsed[2] = true;
+        LastMove = 2;
+    }
+
+    public void useJumpHeavy()
+    {
+        Heavy = true;
+        AnimFinish = .417f;
+        player.MoveUsed[3] = true;
+        LastMove = 3;
+    }
+
+    public void useJumpSpecial()
+    {
+        Special = true;
+        AnimFinish = .417f;
+        player.MoveUsed[6] = true;
+        LastMove = 6;
     }
 
     public void ExecuteAnim()
