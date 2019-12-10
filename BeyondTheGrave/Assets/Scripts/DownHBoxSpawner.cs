@@ -49,7 +49,8 @@ public class DownHBoxSpawner : MonoBehaviour
         {
             if (enemy.player.blocking)
             {
-                enemy.blockStun = .1f * 2;
+                enemy.blockStun = .167f * 2;
+                enemy.player.charState = "blockstun";
             }
             else
             {
@@ -68,7 +69,7 @@ public class DownHBoxSpawner : MonoBehaviour
                 controller.player.MoveUsed[0] = false;
                 controller.HitConfirm = true;
                 enemy.player.charState = "hitstun";
-                enemy.stunTime = 1f * 2;
+                enemy.stunTime = .417f * 2;
                 //Debug.Log(enemy.stunTime);
             }
         }
