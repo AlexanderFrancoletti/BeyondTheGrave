@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public Player player;
     private int jump;
-    private Vector2 directionalInput;
+    public Vector2 directionalInput;
     private float jumpInput;
     private Vector2 Velocity;
     private float friction;
@@ -98,7 +98,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         jumpInput = Input.GetAxisRaw(VerticalControl);
-        directionalInput = new Vector2(Input.GetAxisRaw(HorizontalControl), Input.GetAxisRaw(VerticalControl));
+        if (!GetComponentInParent<AIController>().isActiveAndEnabled)
+            directionalInput = new Vector2(Input.GetAxisRaw(HorizontalControl), Input.GetAxisRaw(VerticalControl));
         if (transform.position.x < p2.transform.position.x)
             transform.localScale = new Vector2(xScale, yScale);
         else

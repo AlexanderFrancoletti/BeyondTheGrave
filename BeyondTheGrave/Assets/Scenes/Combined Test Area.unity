@@ -1810,7 +1810,7 @@ PrefabInstance:
     - target: {fileID: 5473063852432572398, guid: 4a5d4f82357c64e419daa18eb5f519d4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.56
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5473063852432572398, guid: 4a5d4f82357c64e419daa18eb5f519d4,
         type: 3}
@@ -2453,7 +2453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27762a901e8703e4ba839ec669f7d555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   controlledCharacter: {fileID: 1113369629}
 --- !u!1001 &399048709124386532
 PrefabInstance:
@@ -2768,7 +2768,7 @@ PrefabInstance:
     - target: {fileID: 5473063852432572398, guid: 4a5d4f82357c64e419daa18eb5f519d4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.71
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 5473063852432572398, guid: 4a5d4f82357c64e419daa18eb5f519d4,
         type: 3}
@@ -2925,7 +2925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27762a901e8703e4ba839ec669f7d555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   controlledCharacter: {fileID: 522478161}
 --- !u!1 &7410267216646777283 stripped
 GameObject:
